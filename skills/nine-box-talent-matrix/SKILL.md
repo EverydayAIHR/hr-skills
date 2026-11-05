@@ -5,6 +5,8 @@ description: Build a 9-box talent matrix for a team from annual performance revi
 
 # 9-box talent matrix
 
+_These instructions are written for any AI assistant. The frontmatter above is for tools that load skills automatically; if you are pasting this into a chat, you can ignore it._
+
 Place each person in one of nine boxes using two things: **performance** (what they have delivered) and **potential** (how likely they are to grow into a bigger role over the next 2 to 3 years). The result starts a conversation about development. It is not a pay, promotion or disciplinary decision.
 
 ## What you need before you start
@@ -13,9 +15,9 @@ Place each person in one of nine boxes using two things: **performance** (what t
 2. **A potential assessment** for each person, completed by their manager: five criteria, each rated 1 (Low), 2 (Medium) or 3 (High), each with a specific example from the last 12 to 24 months.
 3. **Supporting records** (optional but useful): results against targets, the employee master, career wishes recorded in one-to-one conversations.
 
-If the user has no performance or potential form yet, offer the blank formats in the `formats/` folder of this skill: an annual performance evaluation form, a talent matrix potential assessment form, and an empty interactive 9-box grid. Explain they are starting points to adapt to the company's own policy. They contain no data.
+If the user has no performance or potential form yet, offer the blank formats in the `formats/` folder of this skill (online: https://github.com/EverydayAIHR/hr-skills/tree/main/skills/nine-box-talent-matrix/formats): an annual performance evaluation form, a talent matrix potential assessment form, and an empty interactive 9-box grid. Explain they are starting points to adapt to the company's own policy. They contain no data.
 
-Look for these in the user's connected files first. If something is missing, say exactly what is missing and who can provide it. Do not fill gaps with guesses.
+Look for these in the files the user has shared or connected first. If something is missing, say exactly what is missing and who can provide it. Do not fill gaps with guesses.
 
 ## Step 1: Performance score
 
