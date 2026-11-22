@@ -1,21 +1,23 @@
 /* Careers portal. Brand colours are set from settings in app.js. */
 :root {
-  --brand: #1F4E79;
+  --brand: #005F53;
   --brand-ink: #ffffff;          /* text on brand, computed for contrast */
-  --brand-deep: color-mix(in srgb, var(--brand) 78%, #000);
+  --brand-deep: color-mix(in srgb, var(--brand) 78%, #000);   /* #004A41 for the default teal */
   --brand-tint: color-mix(in srgb, var(--brand) 9%, #fff);
-  --ink: #18222E;
-  --ink-2: #4A5664;
-  --ink-3: #6E7A87;
-  --paper: #FFFFFF;
-  --surface: #EEF1F3;
-  --line: #D9DEE3;
-  --signal: #F2B705;
-  --danger: #B3261E;
+  --ink: #16211D;
+  --ink-2: #3F5149;
+  --ink-3: #52645B;
+  --paper: #FCFAF4;
+  --surface: #E6F1EE;   /* mint */
+  --sand: #F5EDDC;
+  --deep: #00372F;     /* deep green */
+  --line: #D4DDD7;
+  --signal: #EFB146;   /* amber accent */
+  --danger: #B42322;
   --ok: #1D7A46;
 
-  --wide: "Archivo", system-ui, sans-serif;
-  --body: "Archivo", system-ui, sans-serif;
+  --display: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --body: "Karla", ui-sans-serif, system-ui, sans-serif;
   --measure: 68ch;
   --gutter: clamp(20px, 5vw, 56px);
   --max: 1180px;
@@ -31,9 +33,9 @@ body {
   line-height: 1.55;
   color: var(--ink);
   background: var(--paper);
-  font-variation-settings: "wdth" 100;
 }
 img, svg { display: block; max-width: 100%; }
+h1, h2, h3 { font-family: var(--display); }
 a { color: var(--brand); text-underline-offset: 3px; }
 a:hover { color: var(--brand-deep); }
 button, input, select, textarea { font: inherit; color: inherit; }
@@ -46,19 +48,18 @@ main { flex: 1; }
 main:focus, [tabindex="-1"]:focus { outline: none; }
 .wrap { max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); }
 
-/* Wide display type */
+/* Display type (Manrope) */
 .display {
-  font-family: var(--wide);
-  font-variation-settings: "wdth" 125;
+  font-family: var(--display);
   font-weight: 800;
-  letter-spacing: -0.02em;
-  line-height: 0.98;
+  letter-spacing: -0.025em;
+  line-height: 1.02;
   margin: 0;
 }
 
 /* Demo strip */
 .demo-strip {
-  background: var(--ink);
+  background: var(--deep);
   color: #E6EAEE;
   font-size: 13.5px;
   padding: 8px var(--gutter);
@@ -67,10 +68,10 @@ main:focus, [tabindex="-1"]:focus { outline: none; }
 .demo-strip a { color: #fff; }
 
 /* Header */
-.site-header { border-bottom: 1px solid var(--line); background: var(--paper); position: sticky; top: 0; z-index: 20; }
+.site-header { border-bottom: 1px solid var(--line); background: color-mix(in srgb, var(--paper) 92%, transparent); backdrop-filter: blur(8px); position: sticky; top: 0; z-index: 20; }
 .site-header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 68px; }
 .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--ink); font-weight: 700; }
-.brand-mark { width: 36px; height: 36px; border-radius: 8px; background: var(--brand); color: var(--brand-ink); display: grid; place-items: center; font-family: var(--wide); font-variation-settings: "wdth" 125; font-weight: 800; font-size: 15px; overflow: hidden; }
+.brand-mark { width: 36px; height: 36px; border-radius: 8px; background: var(--brand); color: var(--brand-ink); display: grid; place-items: center; font-family: var(--display); font-weight: 800; font-size: 16px; overflow: hidden; }
 .brand-mark img { width: 100%; height: 100%; object-fit: contain; background: #fff; }
 .brand small { display: block; font-weight: 500; color: var(--ink-3); font-size: 13px; line-height: 1.1; }
 .nav { display: flex; gap: 4px; }
@@ -93,7 +94,7 @@ main:focus, [tabindex="-1"]:focus { outline: none; }
 
 /* Hero: the open roles are the hero */
 .hero { padding: clamp(44px, 8vw, 96px) 0 28px; }
-.hero h1 { font-size: clamp(44px, 9vw, 112px); max-width: 14ch; }
+.hero h1 { font-size: clamp(40px, 7.4vw, 92px); max-width: 15ch; }
 .hero p.about { max-width: 56ch; color: var(--ink-2); font-size: clamp(17px, 1.6vw, 20px); margin: 22px 0 0; }
 
 /* Search and filters */
@@ -110,22 +111,22 @@ main:focus, [tabindex="-1"]:focus { outline: none; }
 .chip {
   border: 1px solid var(--line); background: #fff; border-radius: 999px; padding: 7px 14px; font-size: 14.5px; cursor: pointer; color: var(--ink-2);
 }
-.chip[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: #fff; }
+.chip[aria-pressed="true"] { background: var(--brand); border-color: var(--brand); color: var(--brand-ink); }
 
 /* Roles list */
 #roles { margin-top: 28px; }
-.roles { margin: 0; padding: 0; list-style: none; border-top: 2px solid var(--ink); }
+.roles { margin: 0; padding: 0; list-style: none; border-top: 2px solid var(--deep); }
 .roles-head, .role a {
   display: grid; grid-template-columns: minmax(0, 2.4fr) 1.1fr 1.2fr 1fr 1fr 28px; gap: 20px; align-items: center;
 }
-@media (min-width: 861px) { .roles { border-top: 0; } .roles-head { border-top: 2px solid var(--ink); } }
+@media (min-width: 861px) { .roles { border-top: 0; } .roles-head { border-top: 2px solid var(--deep); } }
 .roles-head { font-size: 13.5px; color: var(--ink-3); padding: 10px 0; border-bottom: 1px solid var(--line); }
 .role { border-bottom: 1px solid var(--line); }
 .role a { padding: 22px 0; text-decoration: none; color: var(--ink); }
 .role a:hover .role-title { color: var(--brand); }
 .role a:hover .role-go { transform: translateX(4px); color: var(--brand); }
-.role-title { font-family: var(--wide); font-variation-settings: "wdth" 112; font-weight: 700; font-size: clamp(20px, 2.2vw, 26px); line-height: 1.15; letter-spacing: -0.01em; }
-.role-summary { display: block; font-family: var(--body); font-variation-settings: "wdth" 100; font-weight: 400; font-size: 15px; color: var(--ink-2); margin-top: 6px; letter-spacing: 0; }
+.role-title { font-family: var(--display); font-weight: 700; font-size: clamp(20px, 2.2vw, 26px); line-height: 1.15; letter-spacing: -0.01em; }
+.role-summary { display: block; font-family: var(--body); font-weight: 400; font-size: 15px; color: var(--ink-2); margin-top: 6px; letter-spacing: 0; }
 .role-cell { font-size: 15.5px; color: var(--ink-2); }
 .role-cell .lbl { display: none; }
 .role-go { color: var(--ink-3); transition: transform .15s ease; }
@@ -150,8 +151,8 @@ main:focus, [tabindex="-1"]:focus { outline: none; }
 .section .intro { color: var(--ink-2); max-width: 56ch; margin: 16px 0 0; font-size: 18px; }
 
 .steps { list-style: none; padding: 0; margin: 40px 0 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; counter-reset: step; }
-.steps li { counter-increment: step; padding: 22px 24px 4px 0; border-top: 2px solid var(--ink); margin-right: 20px; }
-.steps li::before { content: counter(step); font-family: var(--wide); font-variation-settings: "wdth" 125; font-weight: 800; font-size: 40px; line-height: 1; display: block; color: var(--brand); margin-bottom: 14px; }
+.steps li { counter-increment: step; padding: 22px 24px 4px 0; border-top: 2px solid var(--deep); margin-right: 20px; }
+.steps li::before { content: counter(step); font-family: var(--display); font-weight: 800; font-size: 40px; line-height: 1; display: block; color: var(--brand); margin-bottom: 14px; }
 .steps h3 { margin: 0 0 6px; font-size: 18px; }
 .steps p { margin: 0; color: var(--ink-2); font-size: 15.5px; }
 @media (max-width: 860px) { .steps { grid-template-columns: 1fr 1fr; row-gap: 28px; } }
@@ -164,7 +165,7 @@ main:focus, [tabindex="-1"]:focus { outline: none; }
 @media (max-width: 860px) { .facts { grid-template-columns: 1fr; gap: 22px; } }
 
 /* Footer */
-.site-footer { background: var(--ink); color: #C9D1D9; padding: 44px 0; font-size: 15px; }
+.site-footer { background: var(--deep); color: #CFE3DD; padding: 44px 0; font-size: 15px; }
 .site-footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 18px; }
 .site-footer a { color: #fff; }
 .site-footer p { margin: 0; }
@@ -173,7 +174,7 @@ main:focus, [tabindex="-1"]:focus { outline: none; }
 .crumb { padding: 26px 0 0; font-size: 15px; }
 .crumb a { text-decoration: none; display: inline-flex; gap: 6px; align-items: center; }
 .job { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: clamp(32px, 5vw, 72px); padding: 22px 0 88px; align-items: start; }
-.job-head h1 { font-size: clamp(36px, 6vw, 72px); }
+.job-head h1 { font-size: clamp(34px, 5.2vw, 64px); }
 .job-dept { color: var(--ink-3); font-weight: 600; margin: 0 0 14px; font-size: 16px; }
 .job-summary { font-size: clamp(18px, 1.8vw, 21px); color: var(--ink-2); max-width: 52ch; margin: 22px 0 0; }
 .prose { max-width: var(--measure); margin-top: 40px; }
@@ -182,6 +183,7 @@ main:focus, [tabindex="-1"]:focus { outline: none; }
 .prose ul { margin: 0 0 14px; padding-left: 22px; }
 .prose li { margin: 6px 0; }
 .panel { position: sticky; top: 92px; border: 1px solid var(--line); border-radius: 12px; padding: 24px; background: #fff; }
+.section-sand { background: var(--sand); }
 .panel dl { margin: 0 0 22px; display: grid; grid-template-columns: auto 1fr; gap: 10px 16px; font-size: 15.5px; }
 .panel dt { color: var(--ink-3); }
 .panel dd { margin: 0; font-weight: 600; }
@@ -204,7 +206,7 @@ main:focus, [tabindex="-1"]:focus { outline: none; }
 .field label { display: block; font-weight: 600; font-size: 15.5px; margin-bottom: 6px; }
 .field .hint { font-weight: 400; color: var(--ink-3); }
 .field input, .field textarea {
-  width: 100%; border: 1px solid #C3CAD2; border-radius: 8px; padding: 12px 14px; background: #fff;
+  width: 100%; border: 1px solid #7C8D83; border-radius: 8px; padding: 12px 14px; background: #fff;
 }
 .field textarea { min-height: 120px; resize: vertical; }
 .field input:focus, .field textarea:focus { border-color: var(--brand); outline: 3px solid var(--brand-tint); outline-offset: 0; }
@@ -213,7 +215,7 @@ main:focus, [tabindex="-1"]:focus { outline: none; }
 .err:empty { display: none; }
 .form input, .form textarea, .form .drop { scroll-margin-top: 120px; }
 .drop {
-  border: 2px dashed #B8C1CA; border-radius: 12px; padding: 26px; text-align: center; background: var(--surface); cursor: pointer;
+  border: 2px dashed #9FB0A7; border-radius: 12px; padding: 26px; text-align: center; background: var(--surface); cursor: pointer;
 }
 .drop.over { border-color: var(--brand); background: var(--brand-tint); }
 .drop strong { display: block; font-size: 17px; }

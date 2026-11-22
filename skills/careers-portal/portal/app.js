@@ -62,7 +62,7 @@
       root.setProperty("--brand", s.brand_primary);
       // white text needs 4.5:1 against the brand colour; otherwise use ink
       const L = luminance(s.brand_primary);
-      root.setProperty("--brand-ink", (1.05 / (L + .05)) >= 4.5 ? "#ffffff" : "#18222E");
+      root.setProperty("--brand-ink", (1.05 / (L + .05)) >= 4.5 ? "#ffffff" : "#16211D");
     }
     const words = (s.company_name || "?").replace(/[^A-Za-z0-9 ]/g, "").split(/\s+/).filter(w => w && !/^(inc|ltd|llc|llp|pte|plc|co|corp|gmbh|sdn|bhd|pvt|limited)$/i.test(w));
     const initials = (words.length ? words : ["?"]).slice(0, 2).map(w => w[0]).join("").toUpperCase();

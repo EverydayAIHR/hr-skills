@@ -12,7 +12,7 @@
       privacy_contact: "privacy@acme.example",
       retention_days: 180,
       show_pay: true,
-      brand_primary: "#1F4E79",
+      brand_primary: "#005F53",
       logo_url: "",
       website_url: "",
       highlights: [

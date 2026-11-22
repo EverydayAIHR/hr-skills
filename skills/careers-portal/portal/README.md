@@ -9,7 +9,7 @@ Open `index.html` through any local web server (for example `python3 -m http.ser
 | File | What it is |
 |---|---|
 | `index.html` | Page shell |
-| `styles.css` | All styling. Brand colour comes from settings; text colour on buttons is picked for contrast automatically |
+| `styles.css` | All styling: Manrope for headings, Karla for text, teal `#005F53` with mint, sand and amber. Brand colour comes from settings; text colour on buttons is picked for contrast automatically |
 | `app.js` | Pages, search and filters, apply form, and the connection to the backend. No build step |
 | `config.js` | Backend URL and public key. Empty = demo mode |
 | `demo-data.js` | Sample settings and jobs for demo mode |

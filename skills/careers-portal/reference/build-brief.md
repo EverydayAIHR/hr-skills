@@ -10,7 +10,7 @@ database, file storage and server functions.
 
 REFERENCE BUILD (attached)
 - Reproduce the attached reference build's design and behaviour in this
-  project: same layout, type (Archivo, wide headlines), spacing, pages,
+  project: same layout, type (Manrope headings, Karla body text), spacing, pages,
   filters, apply form, validation messages and confirmation page.
 - Use the attached schema.sql as the database migration, unchanged.
 - Keep the same page addresses for roles (role, apply and applied pages
