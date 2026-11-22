@@ -86,7 +86,7 @@
     await loadScript("https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2");
     state.sb = window.supabase.createClient(cfg.supabaseUrl, cfg.supabaseAnonKey);
     const [s, j] = await Promise.all([
-      state.sb.from("settings").select("company_name,tagline,about,careers_email,privacy_contact,retention_days,show_pay,brand_primary,logo_url,website_url,highlights").limit(1).maybeSingle(),
+      state.sb.from("settings").select("company_name,tagline,hero_headline,about,careers_email,privacy_contact,retention_days,show_pay,brand_primary,logo_url,website_url,highlights").limit(1).maybeSingle(),
       state.sb.from("jobs").select("id,slug,title,department,location,work_mode,employment_type,summary,description,requirements,pay_text,closes_on,status").eq("status", "open").order("created_at", { ascending: false })
     ]);
     if (s.error) throw s.error;
@@ -102,13 +102,15 @@
     const depts = [...new Set(open.map(j => j.department).filter(Boolean))].sort();
     const locs = [...new Set(open.map(j => j.location).filter(Boolean))].sort();
     const n = open.length;
-    const headline = n === 0 ? "No open roles right now" : `${numberWord(n)} open role${n === 1 ? "" : "s"} at ${s.company_name}`;
+    const headline = s.hero_headline || "Step into a career you can grow in";
+    const count = n === 0 ? "No open roles right now" : `${numberWord(n)} open role${n === 1 ? "" : "s"}${depts.length > 1 ? ` across ${depts.slice(0, -1).join(", ")} and ${depts[depts.length - 1]}` : ""}`;
 
     main.innerHTML = `
       <section class="hero" aria-labelledby="h-roles">
         <div class="wrap">
           <h1 class="display" id="h-roles">${esc(headline)}</h1>
           ${s.about ? `<p class="about">${esc(s.about)}</p>` : ""}
+          <p class="count"><a href="#roles">${esc(count)}</a></p>
           ${n ? `
           <div class="finder" role="search">
             <label class="search"><span class="sr-only">Search roles</span>${icon.search}

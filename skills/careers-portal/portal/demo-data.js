@@ -7,6 +7,7 @@
     settings: {
       company_name: "Acme Inc.",
       tagline: "Industrial supplies, Singapore",
+      hero_headline: "Step into a rewarding career",
       about: "We're a team of about 40 people supplying tools, safety gear and spare parts to workshops, shipyards and factories across Singapore. Most orders leave our Tuas warehouse the same day.",
       careers_email: "careers@acme.example",
       privacy_contact: "privacy@acme.example",

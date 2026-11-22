@@ -8,6 +8,7 @@ create table if not exists public.settings (
   id              smallint primary key default 1 check (id = 1),  -- one row only
   company_name    text not null,
   tagline         text,
+  hero_headline   text,          -- e.g. "Step into a rewarding career"
   about           text,
   careers_email   text not null,
   privacy_contact text not null,
@@ -112,7 +113,7 @@ grant select (id, slug, title, department, location, work_mode, employment_type,
               summary, description, requirements, pay_text, closes_on, status, created_at)
   on public.jobs to anon;
 revoke select on public.settings from anon;
-grant select (company_name, tagline, about, careers_email, privacy_contact, retention_days,
+grant select (company_name, tagline, hero_headline, about, careers_email, privacy_contact, retention_days,
               show_pay, brand_primary, logo_url, website_url, highlights)
   on public.settings to anon;
 

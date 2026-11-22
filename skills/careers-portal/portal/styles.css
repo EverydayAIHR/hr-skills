@@ -95,6 +95,10 @@ main:focus, [tabindex="-1"]:focus { outline: none; }
 /* Hero: the open roles are the hero */
 .hero { padding: clamp(44px, 8vw, 96px) 0 28px; }
 .hero h1 { font-size: clamp(40px, 7.4vw, 92px); max-width: 15ch; }
+.hero .count { margin: 26px 0 0; font-family: var(--display); font-weight: 700; font-size: 18px; }
+.hero .count a { color: var(--brand); text-decoration: none; display: inline-flex; align-items: center; gap: 10px; }
+.hero .count a::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--signal); }
+.hero .count a:hover { text-decoration: underline; }
 .hero p.about { max-width: 56ch; color: var(--ink-2); font-size: clamp(17px, 1.6vw, 20px); margin: 22px 0 0; }
 
 /* Search and filters */

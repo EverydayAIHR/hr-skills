@@ -14,6 +14,7 @@ This model is for **one company per portal**. Each company builds its own copy.
 |---|---|---|
 | company_name | text | |
 | tagline | text | Optional, e.g. "Industrial supplies, Singapore" |
+| hero_headline | text | Optional headline, e.g. "Step into a rewarding career". The portal has a default |
 | about | text | One or two lines shown on the careers page |
 | careers_email | text | Default inbox for applications |
 | privacy_contact | text | Shown in the privacy note |

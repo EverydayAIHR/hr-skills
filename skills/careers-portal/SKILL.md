@@ -52,6 +52,7 @@ Ask for these together, in one short list. Don't ask one question at a time.
 | Detail | Example | Needed? |
 |---|---|---|
 | Company name | Acme Inc. | Yes |
+| A headline for the careers page | "Step into a rewarding career" | Optional; offer two or three to choose from |
 | One or two lines about the company | "A 40-person distributor of industrial supplies" | Yes |
 | Up to three things that make it a good place to work | "Training paid for and done in work hours" | Optional. Leave the section out rather than invent them |
 | Locations they hire in | Singapore; Remote | Yes |
