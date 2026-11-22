@@ -2,9 +2,19 @@
 
 Fill in the `{placeholders}` from Step 2 and the email choice from Step 3, then send the brief to the app builder in one message. Remove the email section you're not using. Written for Lovable; for other builders see `other-builders.md`.
 
+**Attach the reference build.** The finished design lives in `../portal/` (online: https://github.com/EverydayAIHR/hr-skills/tree/main/skills/careers-portal/portal). Attach `index.html`, `styles.css`, `app.js` and `supabase/schema.sql` to the message (with the Lovable connector: get an upload address for each file, then pass the files with the message). If you can't attach files, paste the GitHub link and ask the builder to follow it.
+
 ```
 Build a careers portal for {company_name}. Use Lovable Cloud for the
 database, file storage and server functions.
+
+REFERENCE BUILD (attached)
+- Reproduce the attached reference build's design and behaviour in this
+  project: same layout, type (Archivo, wide headlines), spacing, pages,
+  filters, apply form, validation messages and confirmation page.
+- Use the attached schema.sql as the database migration, unchanged.
+- Keep the same page addresses for roles (role, apply and applied pages
+  by job slug).
 
 BRAND
 - Company: {company_name}. About: {about}.

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Careers at Acme Inc.</title>
+  <meta name="description" content="Open roles and how to apply.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <div class="demo-strip" id="demoStrip" hidden>Demo mode. Acme Inc. and its roles are invented, and applications aren't sent anywhere.</div>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="#" id="brandLink" aria-label="Careers home">
+        <span class="brand-mark" id="brandMark" aria-hidden="true"></span>
+        <span><span id="brandName"></span><small>Careers</small></span>
+      </a>
+      <nav class="nav" aria-label="Main">
+        <a href="#roles" class="nav-primary">Open roles</a>
+        <a href="#working-here">Working here</a>
+        <a href="#how-we-hire">How we hire</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <div class="wrap loading">Loading open roles…</div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p id="footerName"></p>
+      <p><a href="#privacy">How we handle your application</a></p>
+    </div>
+  </footer>
+
+  <div aria-live="polite" class="sr-only" id="announce"></div>
+
+  <script src="config.js"></script>
+  <script src="demo-data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,5 +1,7 @@
 # Data model
 
+The exact SQL, with access rules and storage policies, is in `../portal/supabase/schema.sql`.
+
 The portal keeps jobs as **data**, not as page text. The page reads open jobs from a table, so posting, editing and closing a job is a change to one row. There's no rebuild and no redeploy.
 
 This model is for **one company per portal**. Each company builds its own copy.
@@ -11,12 +13,16 @@ This model is for **one company per portal**. Each company builds its own copy.
 | Field | Type | Notes |
 |---|---|---|
 | company_name | text | |
+| tagline | text | Optional, e.g. "Industrial supplies, Singapore" |
 | about | text | One or two lines shown on the careers page |
 | careers_email | text | Default inbox for applications |
 | privacy_contact | text | Shown in the privacy note |
 | retention_days | integer | How long CVs and applications are kept, e.g. 180 |
 | show_pay | boolean | Default false |
-| brand_primary, brand_dark, brand_tint | text | Hex colours confirmed by the user |
+| brand_primary | text | Hex colour confirmed by the user. Button text colour and lighter and darker shades are worked out from it |
+| logo_url | text | Optional; initials are shown if empty |
+| website_url | text | Optional |
+| highlights | json | Optional list of up to three `{title, text}` points for "Working at…". Only what the user supplied |
 | notify_mode | text | `gmail`, `chat_only`, `lovable_emails` or `resend` |
 
 ### `jobs`

@@ -20,7 +20,8 @@ Reference files in this skill (online: https://github.com/EverydayAIHR/hr-skills
 | `reference/email-options.md` | How applications reach the inbox: free options and own-domain options |
 | `reference/everyday-tasks.md` | Posting, editing, closing jobs and reviewing applicants after launch |
 | `reference/other-builders.md` | Replit, Base44 and Bolt instead of Lovable |
-| `formats/careers-portal-demo.html` | A clickable demo of the finished portal. Open it in a browser; it sends and saves nothing |
+| `portal/` | The finished reference portal: design, pages, apply form and `supabase/schema.sql`. Demo mode runs with invented data |
+| `formats/careers-portal-demo.html` | A walkthrough page explaining how CVs reach HR and how jobs are posted from the assistant |
 
 ## Ground rules (apply at every step)
 
@@ -52,6 +53,7 @@ Ask for these together, in one short list. Don't ask one question at a time.
 |---|---|---|
 | Company name | Acme Inc. | Yes |
 | One or two lines about the company | "A 40-person distributor of industrial supplies" | Yes |
+| Up to three things that make it a good place to work | "Training paid for and done in work hours" | Optional. Leave the section out rather than invent them |
 | Locations they hire in | Singapore; Remote | Yes |
 | Careers inbox where applications go | careers@company.com | Yes. A shared inbox, not a personal one |
 | How long to keep CVs | 6 months | Yes |
@@ -76,7 +78,7 @@ Record the choice. It decides part of the build brief.
 
 ## Step 4: Build the portal
 
-1. Fill in `reference/build-brief.md` with the details from Step 2 and the email choice from Step 3.
+1. Fill in `reference/build-brief.md` with the details from Step 2 and the email choice from Step 3, and attach the reference portal files it lists.
 2. Show the user a short summary of what will be built and the credits it will use. Ask for a yes.
 3. Create a new Lovable project and send the brief. If the connector can't create projects, give the user the filled-in brief to paste into Lovable.
 4. When the build finishes, check it against `reference/data-model.md`, especially that CV storage is **private** and the public can read only open jobs. Ask the builder to fix anything that is missing.
