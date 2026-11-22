@@ -11,6 +11,7 @@ Each episode shows how an HR person can use an AI assistant on a real task. The 
 | # | Episode | Skill | Demo files |
 |---|---|---|---|
 | 1 | Build a 9-Box Talent Matrix with AI (Using Your Own HR Data) | [nine-box-talent-matrix](skills/nine-box-talent-matrix/SKILL.md) | [episodes/01-nine-box-talent-matrix](episodes/01-nine-box-talent-matrix) |
+| 2 | _Title to come_: build your own careers portal and post jobs from your AI assistant | [careers-portal](skills/careers-portal/SKILL.md) | [formats/careers-portal-demo.html](skills/careers-portal/formats/careers-portal-demo.html) |
 
 Video links are added to each episode folder when the video is published.
 

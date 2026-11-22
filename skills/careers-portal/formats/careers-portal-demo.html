@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SME Job Portal – Mock</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f6f7f9; --card:#fff; --ink:#14181f; --muted:#5b6472; --line:#e3e6eb;
+  --brand:#0f6e5c; --brand-2:#e6f3ef; --accent:#f2a516; --danger:#b42318;
+  --mono:'JetBrains Mono',ui-monospace,monospace; --r:12px;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5;font-size:15px}
+a{color:var(--brand)}
+.banner{background:#fff7e0;border-bottom:1px solid #f0dfa8;font-size:13px;padding:8px 16px;text-align:center;color:#6b5200}
+header{background:var(--card);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+.wrap{max-width:1040px;margin:0 auto;padding:0 16px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700}
+.logo i{width:30px;height:30px;border-radius:8px;background:var(--brand);display:grid;place-items:center;color:#fff;font-style:normal;font-size:14px}
+nav.tabs{display:flex;gap:4px;overflow-x:auto;padding-bottom:8px}
+nav.tabs button{border:0;background:none;padding:8px 12px;border-radius:8px;font:inherit;font-weight:500;color:var(--muted);cursor:pointer;white-space:nowrap}
+nav.tabs button.on{background:var(--brand-2);color:var(--brand)}
+section.view{display:none;padding:24px 0 60px}
+section.view.on{display:block}
+h1{font-size:28px;line-height:1.2;margin:0 0 8px}
+h2{font-size:20px;margin:28px 0 10px}
+h3{font-size:16px;margin:0 0 4px}
+.lead{color:var(--muted);max-width:640px;margin:0 0 20px}
+.hero{background:linear-gradient(135deg,#0f6e5c,#13856f);color:#fff;border-radius:var(--r);padding:28px 24px;margin-bottom:20px}
+.hero .lead{color:#d9efe9}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+input,select,textarea{font:inherit;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:#fff;width:100%}
+.filters input{flex:2;min-width:180px}.filters select{flex:1;min-width:130px;width:auto}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px}
+.job{cursor:pointer;transition:border-color .15s, box-shadow .15s}
+.job:hover{border-color:var(--brand);box-shadow:0 2px 10px rgba(15,110,92,.08)}
+.meta{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.pill{font-size:12px;padding:3px 8px;border-radius:999px;background:#eef0f3;color:#3b4350}
+.pill.new{background:#fff1d1;color:#7a5200}
+.pill.closed{background:#fde8e6;color:var(--danger)}
+.small{font-size:13px;color:var(--muted)}
+.btn{display:inline-flex;align-items:center;gap:6px;border:0;border-radius:8px;padding:10px 16px;font:inherit;font-weight:600;cursor:pointer;background:var(--brand);color:#fff}
+.btn.ghost{background:#fff;color:var(--brand);border:1px solid var(--brand)}
+.btn.warn{background:var(--accent);color:#2a1d00}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.empty{padding:30px;text-align:center;color:var(--muted)}
+/* modal */
+.modal{position:fixed;inset:0;background:rgba(10,14,20,.5);display:none;align-items:flex-start;justify-content:center;overflow:auto;padding:24px 12px;z-index:20}
+.modal.on{display:flex}
+.sheet{background:#fff;border-radius:var(--r);max-width:640px;width:100%;padding:22px}
+.sheet .x{float:right;border:0;background:#eef0f3;border-radius:8px;width:32px;height:32px;cursor:pointer;font-size:16px}
+label{display:block;font-weight:500;font-size:14px;margin:12px 0 4px}
+.check{display:flex;gap:8px;align-items:flex-start;font-weight:400;font-size:13px;color:var(--muted)}
+.check input{width:auto;margin-top:3px}
+.err{color:var(--danger);font-size:13px;margin-top:6px;min-height:18px}
+/* pipeline */
+.pipe{list-style:none;margin:14px 0;padding:0}
+.pipe li{display:flex;gap:12px;padding:10px 0;border-bottom:1px dashed var(--line);opacity:.35;transition:opacity .3s}
+.pipe li.done{opacity:1}
+.pipe .dot{flex:none;width:26px;height:26px;border-radius:50%;background:#eef0f3;display:grid;place-items:center;font-size:13px;font-weight:700}
+.pipe li.done .dot{background:var(--brand);color:#fff}
+code,pre{font-family:var(--mono);font-size:12.5px}
+pre{background:#0f1720;color:#d6e2ef;padding:14px;border-radius:10px;overflow-x:auto;white-space:pre-wrap;word-break:break-word;margin:8px 0}
+.email{border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-top:12px}
+.email .eh{background:#f3f5f8;padding:10px 14px;font-size:13px}
+.email .eh div{margin:2px 0}
+.email .eb{padding:14px;font-size:14px}
+.att{display:inline-flex;gap:8px;align-items:center;border:1px solid var(--line);border-radius:8px;padding:6px 10px;font-size:13px;margin-top:8px}
+/* compare */
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:2px 8px;border-radius:6px;background:var(--brand-2);color:var(--brand);margin-bottom:6px}
+.tag.alt{background:#eef0f3;color:#3b4350}
+ul.tight{margin:6px 0;padding-left:18px}ul.tight li{margin:3px 0}
+/* chat */
+.chat{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:14px;display:flex;flex-direction:column;gap:10px;min-height:120px}
+.msg{max-width:88%;padding:10px 12px;border-radius:12px;font-size:14px}
+.msg.u{align-self:flex-end;background:var(--brand);color:#fff;border-bottom-right-radius:4px}
+.msg.c{align-self:flex-start;background:#f1f3f6;border-bottom-left-radius:4px}
+.msg.tool{align-self:flex-start;background:#fff;border:1px dashed #b9c2cf;font-size:12.5px;color:var(--muted);font-family:var(--mono)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:560px){.row2{grid-template-columns:1fr}h1{font-size:24px}}
+.steps{counter-reset:s;list-style:none;padding:0;margin:0}
+.steps li{counter-increment:s;position:relative;padding:0 0 14px 40px}
+.steps li:before{content:counter(s);position:absolute;left:0;top:0;width:28px;height:28px;border-radius:50%;background:var(--brand);color:#fff;display:grid;place-items:center;font-weight:700;font-size:13px}
+.note{background:#f0f6ff;border:1px solid #cfe0fb;border-radius:10px;padding:12px 14px;font-size:14px}
+.note.amber{background:#fff8e8;border-color:#f3dfa6}
+footer{color:var(--muted);font-size:12px;text-align:center;padding:20px}
+</style>
+</head>
+<body>
+<div class="banner">Mock-up only. Acme Inc. is an invented company and nothing on this page sends, stores or emails anything.</div>
+<header>
+  <div class="wrap">
+    <div class="top">
+      <div class="logo"><i>H</i>Acme Inc. · Careers</div>
+      <span class="small" id="openCount"></span>
+    </div>
+    <nav class="tabs">
+      <button data-v="careers" class="on">1 · Careers page</button>
+      <button data-v="cvflow">2 · How CVs reach HR</button>
+      <button data-v="mcp">3 · Post jobs from Claude</button>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+<!-- VIEW 1 -->
+<section class="view on" id="v-careers">
+  <div class="hero">
+    <h1>Work with a small team that ships every day</h1>
+    <p class="lead">Acme is a 40-person distributor of marine and industrial supplies. Browse open roles below and apply in two minutes. No account needed.</p>
+  </div>
+  <div class="filters">
+    <input id="q" placeholder="Search roles, e.g. accountant">
+    <select id="fLoc"><option value="">All locations</option></select>
+    <select id="fType"><option value="">All types</option></select>
+  </div>
+  <div class="grid" id="jobs"></div>
+  <p class="small" style="margin-top:18px">This list is read from a <code>jobs</code> table, not hard-coded in the page. That's why new roles can be posted from Claude without rebuilding the site (see tab 3).</p>
+</section>
+
+<!-- VIEW 2 -->
+<section class="view" id="v-cvflow">
+  <h1>How a CV gets to the employer's inbox</h1>
+  <p class="lead">A Lovable app can't send mail from the browser. The Apply button saves the CV, then a small server function (a Lovable Cloud Edge Function) emails it to the address set on that job.</p>
+
+  <div class="card">
+    <ol class="steps">
+      <li><b>Candidate submits the form.</b> Name, email, phone, CV (PDF or Word, up to 5 MB) and a consent tick.</li>
+      <li><b>The CV goes into private storage.</b> It's a Lovable Cloud storage bucket with no public link, at <code>cvs/&lt;company&gt;/&lt;application-id&gt;.pdf</code>.</li>
+      <li><b>An application row is saved.</b> It's linked to the job, so the employer can still see every applicant if an email goes astray.</li>
+      <li><b>The Edge Function sends the email.</b> It reads the job's <code>apply_email</code> and sends through Lovable Emails or Resend, from the portal's verified domain. <b>Reply-To is set to the candidate</b>, so HR just hits Reply.</li>
+      <li><b>The candidate gets an acknowledgement.</b> A short "we've received your application" email.</li>
+      <li><b>Old CVs are cleaned up.</b> A scheduled job deletes CVs after the retention period the employer sets, e.g. 6 months.</li>
+    </ol>
+  </div>
+
+  <h2>Attach the CV, or send a link?</h2>
+  <div class="cols">
+    <div class="card">
+      <span class="tag">Recommended for SMEs</span>
+      <h3>Attach the file</h3>
+      <ul class="tight">
+        <li>The CV lands in Gmail or Outlook like any normal application</li>
+        <li>Nothing for HR to log in to</li>
+        <li>Keep the upload cap small (5 MB) so the email stays well inside mailbox limits</li>
+        <li>Needs Resend, because its API supports attachments</li>
+      </ul>
+    </div>
+    <div class="card">
+      <span class="tag alt">Option</span>
+      <h3>Send a secure link</h3>
+      <ul class="tight">
+        <li>The email carries a link that expires, e.g. after 7 days</li>
+        <li>The CV never sits in a mailbox, which makes privacy and retention easier</li>
+        <li>An expired link needs a "resend link" flow</li>
+        <li>Works with any email provider</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>What the employer receives</h2>
+  <div class="email">
+    <div class="eh">
+      <div><b>From:</b> Acme Careers &lt;jobs@yourportal.example&gt;</div>
+      <div><b>Reply-To:</b> <span class="demoName">Aisha Rahman</span> &lt;<span class="demoEmail">aisha.r@example.com</span>&gt;</div>
+      <div><b>To:</b> careers@acme.example</div>
+      <div><b>Subject:</b> New application: <span class="demoRole">Accounts Executive</span>, <span class="demoName">Aisha Rahman</span></div>
+    </div>
+    <div class="eb">
+      <p style="margin:0 0 8px"><span class="demoName">Aisha Rahman</span> applied for <b class="demoRole">Accounts Executive</b>.</p>
+      <p style="margin:0" class="small">Phone: +65 8xxx xxxx · Consent to store CV for 6 months: Yes<br>Reply to this email to contact the candidate directly.</p>
+      <span class="att">📎 <span class="demoFile">Aisha_Rahman_CV.pdf</span> · 184 KB</span>
+    </div>
+  </div>
+
+  <h2>The prompt to give Lovable</h2>
+  <p class="small">Paste this into the portal's Lovable chat once. It builds steps 2 to 6.</p>
+<pre id="lovPrompt">Use Lovable Cloud. Add a private storage bucket "cvs" (no public access).
+Add an "applications" table: id, job_id, name, email, phone, cv_path,
+consent (boolean), created_at.
+
+On the job page, the Apply form uploads the CV (PDF/DOC/DOCX, max 5 MB)
+to cvs/{company_slug}/{application_id}, saves the row, then calls an Edge
+Function "notify-employer".
+
+notify-employer: use the Resend connector. Send from jobs@&lt;my verified
+domain&gt; to the job's apply_email, with reply_to = the candidate's email,
+subject "New application: {job title}, {name}", the CV attached, and the
+candidate's details in the body. Then send the candidate a short
+acknowledgement email.
+
+Validate inputs, rate-limit by IP, and add a scheduled job that deletes
+CVs and rows older than each company's retention_days.</pre>
+  <button class="btn ghost" onclick="copyText('lovPrompt',this)">Copy prompt</button>
+</section>
+
+<!-- VIEW 3 -->
+<section class="view" id="v-mcp">
+  <h1>Post a job by chatting with Claude</h1>
+  <p class="lead">Once the Lovable connector is added in Claude, the employer describes the role in plain English. Claude shows a preview and asks before anything goes live.</p>
+
+  <div class="cols">
+    <div class="card">
+      <span class="tag">Route A · Recommended</span>
+      <h3>Write the job straight to the database</h3>
+      <p class="small">Claude uses the Lovable <code>query_database</code> tool to insert one row into <code>jobs</code>. The page shows it right away. No code changes and no redeploy.</p>
+    </div>
+    <div class="card">
+      <span class="tag alt">Route B</span>
+      <h3>Ask the Lovable agent to edit the app</h3>
+      <p class="small">Claude uses <code>send_message</code> to brief Lovable's agent. That's right for layout changes, but each message uses Lovable credits and changes code. It's overkill for a job post.</p>
+    </div>
+  </div>
+
+  <h2>One-time setup the employer does</h2>
+  <div class="card">
+    <ol class="steps">
+      <li><b>Get their own copy of the portal.</b> Remix the template into their own Lovable workspace and turn on Lovable Cloud.</li>
+      <li><b>Connect Lovable in Claude.</b> Tap <b>+</b>, then Connectors, Browse connectors, Lovable, Connect, and sign in to Lovable.</li>
+      <li><b>Tell Claude which project is theirs.</b> For example: "My careers portal is the Lovable project <i>acme-careers</i>."</li>
+      <li><b>Post, edit and close jobs in chat.</b> Try it below.</li>
+    </ol>
+  </div>
+
+  <h2>Try it</h2>
+  <div class="card">
+    <div class="row2">
+      <div><label for="jTitle">Role title</label><input id="jTitle" value="Warehouse Supervisor"></div>
+      <div><label for="jLoc">Location</label><input id="jLoc" value="Tuas, Singapore"></div>
+      <div><label for="jType">Type</label>
+        <select id="jType"><option>Full-time</option><option>Part-time</option><option>Contract</option><option>Internship</option></select></div>
+      <div><label for="jClose">Closing date</label><input id="jClose" type="date"></div>
+    </div>
+    <label for="jDesc">What you'd type to Claude (plain English)</label>
+    <textarea id="jDesc" rows="3">We need a warehouse supervisor to run a team of 8 on day shift, forklift licence a plus, 5 years experience. Send CVs to careers@acme.example.</textarea>
+    <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+      <button class="btn" id="runChat">Send to Claude</button>
+      <button class="btn ghost" id="resetChat">Reset</button>
+    </div>
+  </div>
+  <div class="chat" id="chat" style="margin-top:12px"><div class="small">The simulated conversation shows here.</div></div>
+
+  <h2>Other things to say</h2>
+  <div class="cols">
+    <div class="card"><h3>"We've filled the accountant role."</h3><p class="small">Claude finds the row, shows it, and on a yes sets <code>status = 'closed'</code>. The job is kept for history, not deleted.</p><button class="btn ghost" id="closeDemo">Simulate close</button></div>
+    <div class="card"><h3>"Change the designer role to hybrid."</h3><p class="small">One <code>UPDATE</code> on that row, after Claude shows the before and after.</p></div>
+    <div class="card"><h3>"How many people applied for the driver role?"</h3><p class="small">A read-only <code>SELECT</code> on <code>applications</code>. Nothing changes.</p></div>
+  </div>
+
+  <div class="note amber" style="margin-top:16px"><b>Ground rule to teach:</b> database writes through the connector go straight to the live site. Claude should always show the job and the change, then wait for a clear "yes, publish" before running the insert or update.</div>
+</section>
+</main>
+<footer>Mock-up for planning and teaching. Invented company, roles and people.</footer>
+
+<!-- APPLY MODAL -->
+<div class="modal" id="modal">
+  <div class="sheet">
+    <button class="x" onclick="closeModal()" aria-label="Close">✕</button>
+    <div id="mBody"></div>
+  </div>
+</div>
+
+<script>
+const today = new Date();
+const addDays = d => { const x = new Date(today); x.setDate(x.getDate()+d); return x.toISOString().slice(0,10); };
+let jobs = [
+  {id:1,title:"Accounts Executive",location:"Jurong, Singapore",type:"Full-time",closes:addDays(21),status:"open",apply_email:"careers@acme.example",
+   desc:"Handle AP/AR, bank reconciliations and monthly close for a fast-moving distribution business. 2+ years in a similar role; Xero or similar a plus."},
+  {id:2,title:"Delivery Driver (Class 3)",location:"Tuas, Singapore",type:"Full-time",closes:addDays(14),status:"open",apply_email:"careers@acme.example",
+   desc:"Deliver orders to marine and industrial customers across Singapore. Valid Class 3 licence, clean record, early starts."},
+  {id:3,title:"Sales Coordinator",location:"Hybrid · Singapore",type:"Full-time",closes:addDays(30),status:"open",apply_email:"careers@acme.example",
+   desc:"Turn enquiries into quotations, chase follow-ups and keep the CRM tidy. Great with people and spreadsheets."},
+  {id:4,title:"Marketing Intern",location:"Remote",type:"Internship",closes:addDays(10),status:"open",apply_email:"careers@acme.example",
+   desc:"Three-month internship helping with product photos, social posts and the website. Portfolio welcome."}
+];
+let nextId = 5;
+const esc = s => String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fmt = d => new Date(d+"T00:00:00").toLocaleDateString(undefined,{day:"numeric",month:"short",year:"numeric"});
+
+// Tabs
+document.querySelectorAll("nav.tabs button").forEach(b=>b.onclick=()=>show(b.dataset.v));
+function show(v){
+  document.querySelectorAll("nav.tabs button").forEach(b=>b.classList.toggle("on",b.dataset.v===v));
+  document.querySelectorAll("section.view").forEach(s=>s.classList.toggle("on",s.id==="v-"+v));
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+// Careers list
+function refreshFilters(){
+  const fill=(el,vals,label)=>{const cur=el.value;el.innerHTML=`<option value="">${label}</option>`+[...new Set(vals)].map(v=>`<option${v===cur?" selected":""}>${esc(v)}</option>`).join("");};
+  const open=jobs.filter(j=>j.status==="open");
+  fill(fLoc,open.map(j=>j.location),"All locations");
+  fill(fType,open.map(j=>j.type),"All types");
+}
+function render(){
+  const q=document.getElementById("q").value.toLowerCase();
+  const list=jobs.filter(j=>j.status==="open" && j.closes>=today.toISOString().slice(0,10))
+    .filter(j=>!q||(j.title+" "+j.desc).toLowerCase().includes(q))
+    .filter(j=>!fLoc.value||j.location===fLoc.value)
+    .filter(j=>!fType.value||j.type===fType.value);
+  document.getElementById("openCount").textContent=jobs.filter(j=>j.status==="open").length+" open roles";
+  const el=document.getElementById("jobs");
+  el.innerHTML=list.length?list.map(j=>`
+    <div class="card job" onclick="openJob(${j.id})">
+      <h3>${esc(j.title)}</h3>
+      <div class="meta"><span class="pill">${esc(j.location)}</span><span class="pill">${esc(j.type)}</span>${j.isNew?'<span class="pill new">Just posted</span>':''}</div>
+      <p class="small" style="margin:0 0 8px">${esc(j.desc.slice(0,110))}${j.desc.length>110?"…":""}</p>
+      <span class="small">Closes ${fmt(j.closes)}</span>
+    </div>`).join(""):'<div class="empty card">No roles match. Try clearing the filters.</div>';
+}
+const fLoc=document.getElementById("fLoc"), fType=document.getElementById("fType");
+["q","fLoc","fType"].forEach(id=>document.getElementById(id).addEventListener("input",render));
+
+// Job + apply modal
+function openJob(id){
+  const j=jobs.find(x=>x.id===id);
+  document.getElementById("mBody").innerHTML=`
+    <h1 style="font-size:22px">${esc(j.title)}</h1>
+    <div class="meta"><span class="pill">${esc(j.location)}</span><span class="pill">${esc(j.type)}</span><span class="pill">Closes ${fmt(j.closes)}</span></div>
+    <p>${esc(j.desc)}</p>
+    <h2 style="margin-top:18px">Apply</h2>
+    <form id="applyForm" novalidate>
+      <div class="row2">
+        <div><label for="aName">Full name</label><input id="aName" required value="Aisha Rahman"></div>
+        <div><label for="aEmail">Email</label><input id="aEmail" type="email" required value="aisha.r@example.com"></div>
+      </div>
+      <label for="aPhone">Phone</label><input id="aPhone" value="+65 8123 4567">
+      <label for="aCv">CV (PDF or Word, max 5 MB)</label><input id="aCv" type="file" accept=".pdf,.doc,.docx">
+      <label class="check"><input type="checkbox" id="aConsent"> I agree that Acme may keep my CV for 6 months to consider me for this and similar roles. <a href="#" onclick="return false">Privacy note</a></label>
+      <div class="err" id="aErr"></div>
+      <button class="btn" type="submit">Submit application</button>
+    </form>`;
+  document.getElementById("modal").classList.add("on");
+  document.getElementById("applyForm").onsubmit=e=>{e.preventDefault();submitApp(j);};
+}
+function closeModal(){document.getElementById("modal").classList.remove("on");}
+document.getElementById("modal").addEventListener("click",e=>{if(e.target.id==="modal")closeModal();});
+
+function submitApp(j){
+  const name=aName.value.trim(), email=aEmail.value.trim(), file=aCv.files[0];
+  const err=document.getElementById("aErr");
+  if(!name||!/^\S+@\S+\.\S+$/.test(email)) return err.textContent="Please add your name and a valid email.";
+  if(file && file.size>5*1024*1024) return err.textContent="That file is over 5 MB. Please upload a smaller CV.";
+  if(!document.getElementById("aConsent").checked) return err.textContent="Please tick the consent box so we can keep your CV.";
+  const fname=file?file.name:name.replace(/\s+/g,"_")+"_CV.pdf";
+  const size=file?Math.max(1,Math.round(file.size/1024))+" KB":"184 KB";
+  const appId="app_"+Math.random().toString(36).slice(2,8);
+  document.getElementById("mBody").innerHTML=`
+    <h1 style="font-size:22px">Application sent (simulated)</h1>
+    <p class="small">This is what would happen behind the scenes, in order:</p>
+    <ul class="pipe" id="pipe">
+      <li><span class="dot">1</span><div><b>CV uploaded to private storage</b><br><code>cvs/acme/${appId}/${esc(fname)}</code></div></li>
+      <li><span class="dot">2</span><div><b>Application saved</b><br><code>applications</code> row linked to job #${j.id}</div></li>
+      <li><span class="dot">3</span><div><b>Employer emailed with the CV attached</b><br>To ${esc(j.apply_email)}, Reply-To ${esc(email)}</div></li>
+      <li><span class="dot">4</span><div><b>Candidate acknowledgement sent</b><br>To ${esc(email)}</div></li>
+    </ul>
+    <div class="email">
+      <div class="eh">
+        <div><b>From:</b> Acme Careers &lt;jobs@yourportal.example&gt;</div>
+        <div><b>Reply-To:</b> ${esc(name)} &lt;${esc(email)}&gt;</div>
+        <div><b>To:</b> ${esc(j.apply_email)}</div>
+        <div><b>Subject:</b> New application: ${esc(j.title)}, ${esc(name)}</div>
+      </div>
+      <div class="eb">${esc(name)} applied for <b>${esc(j.title)}</b>.<br><span class="att">📎 ${esc(fname)} · ${size}</span></div>
+    </div>
+    <p style="margin-top:14px"><button class="btn ghost" onclick="closeModal()">Done</button></p>`;
+  [...document.querySelectorAll("#pipe li")].forEach((li,i)=>setTimeout(()=>li.classList.add("done"),450*(i+1)));
+}
+
+// MCP chat simulation
+const jClose=document.getElementById("jClose"); jClose.value=addDays(28);
+const chat=document.getElementById("chat");
+function say(cls,html,delay){return new Promise(r=>setTimeout(()=>{const d=document.createElement("div");d.className="msg "+cls;d.innerHTML=html;chat.appendChild(d);d.scrollIntoView({block:"nearest",behavior:"smooth"});r(d);},delay));}
+const sqlStr=s=>"'"+String(s).replace(/'/g,"''")+"'";
+document.getElementById("runChat").onclick=async function(){
+  const t=jTitle.value.trim()||"New role", loc=jLoc.value.trim()||"Singapore", ty=jType.value, cl=jClose.value||addDays(28), d=jDesc.value.trim();
+  const em=(d.match(/[\w.+-]+@[\w-]+\.[\w.]+/)||["careers@acme.example"])[0];
+  this.disabled=true; chat.innerHTML="";
+  await say("u",esc(d)+`<br><br>Title: ${esc(t)} · ${esc(loc)} · ${esc(ty)} · closes ${fmt(cl)}`,50);
+  await say("tool","Lovable · list_projects → acme-careers",500);
+  await say("tool","Lovable · query_database (read-only) → SELECT columns FROM jobs",500);
+  const desc=`Lead a team of 8 on day shift and keep our warehouse running safely and on time. What you'll need: 5+ years' warehouse experience; a forklift licence is a plus.`;
+  const useDesc = /warehouse supervisor/i.test(t) ? desc : d.replace(/send cvs? to\s+\S+/i,"").trim();
+  await say("c",`Here's the job as it will appear. <b>Shall I publish it?</b>
+    <div class="card" style="margin-top:8px"><h3>${esc(t)}</h3><div class="meta"><span class="pill">${esc(loc)}</span><span class="pill">${esc(ty)}</span><span class="pill">Closes ${fmt(cl)}</span></div><p class="small" style="margin:0">${esc(useDesc)}</p><p class="small" style="margin:6px 0 0">Applications go to <b>${esc(em)}</b></p></div>
+    <div style="margin-top:10px;display:flex;gap:8px"><button class="btn" id="yesPub">Yes, publish</button><button class="btn ghost" id="noPub">Not yet</button></div>`,700);
+  document.getElementById("noPub").onclick=async()=>{await say("c","No problem. Nothing was saved. Tell me what to change.",200);document.getElementById("runChat").disabled=false;};
+  document.getElementById("yesPub").onclick=async()=>{
+    document.getElementById("yesPub").disabled=true;
+    const sql=`INSERT INTO jobs (title, location, type, description, apply_email, closes_on, status)\nVALUES (${sqlStr(t)}, ${sqlStr(loc)}, ${sqlStr(ty)},\n        ${sqlStr(useDesc)},\n        ${sqlStr(em)}, ${sqlStr(cl)}, 'open');`;
+    await say("tool","Lovable · query_database<pre>"+esc(sql)+"</pre>",300);
+    jobs.unshift({id:nextId++,title:t,location:loc,type:ty,closes:cl,status:"open",apply_email:em,desc:useDesc,isNew:true});
+    refreshFilters(); render();
+    await say("c",`Published. <b>${esc(t)}</b> is now live on your careers page. <a href="#" id="seeIt">See it</a>`,600);
+    document.getElementById("seeIt").onclick=e=>{e.preventDefault();show("careers");};
+    document.getElementById("runChat").disabled=false;
+  };
+};
+document.getElementById("resetChat").onclick=()=>{chat.innerHTML='<div class="small">The simulated conversation shows here.</div>';document.getElementById("runChat").disabled=false;};
+document.getElementById("closeDemo").onclick=async function(){
+  const j=jobs.find(x=>x.title==="Accounts Executive"&&x.status==="open");
+  chat.innerHTML="";chat.scrollIntoView({behavior:"smooth"});
+  if(!j){await say("c","The Accounts Executive role is already closed.",100);return;}
+  await say("u","We've filled the accountant role.",50);
+  await say("tool","Lovable · query_database (read-only) → SELECT id, title, status FROM jobs WHERE title ILIKE '%account%'",500);
+  await say("c",`I found <b>Accounts Executive</b> (job #${j.id}, open). Should I close it? It'll come off the careers page but stay in your records. <div style="margin-top:8px"><button class="btn warn" id="yesClose">Yes, close it</button></div>`,600);
+  document.getElementById("yesClose").onclick=async()=>{
+    await say("tool",`Lovable · query_database<pre>UPDATE jobs SET status = 'closed' WHERE id = ${j.id};</pre>`,200);
+    j.status="closed"; refreshFilters(); render();
+    await say("c","Done. It's off the page. Would you like me to draft a short note for the other applicants?",500);
+  };
+};
+
+function copyText(id,btn){
+  const txt=document.getElementById(id).innerText;
+  navigator.clipboard.writeText(txt).then(()=>{btn.textContent="Copied";setTimeout(()=>btn.textContent="Copy prompt",1500);})
+    .catch(()=>{btn.textContent="Select the text and copy it";});
+}
+refreshFilters(); render();
+</script>
+</body>
+</html>
