@@ -11,17 +11,23 @@ Help an HR person with no coding background get a careers portal for their own c
 
 The portal belongs to the company. It is built in the company's own app-builder account, CVs are stored in that account, and applications reach the company's own inbox. Nobody else, including the author of this skill, can see the portal or its applicants.
 
-Reference files in this skill (online: https://github.com/EverydayAIHR/hr-skills/tree/main/skills/careers-portal):
+**See the finished portal first:** https://everydayaihr.github.io/hr-skills/skills/careers-portal/portal/ (a demo with an invented company; nothing is sent or saved).
 
-| File | Use it for |
-|---|---|
-| `reference/build-brief.md` | The build instructions to send to the app builder |
-| `reference/data-model.md` | Tables, file storage and access rules the portal must have |
-| `reference/email-options.md` | How applications reach the inbox: free options and own-domain options |
-| `reference/everyday-tasks.md` | Posting, editing, closing jobs and reviewing applicants after launch |
-| `reference/other-builders.md` | Replit, Base44 and Bolt instead of Lovable |
-| `portal/` | The finished reference portal: design, pages, apply form and `supabase/schema.sql`. Demo mode runs with invented data |
-| `formats/careers-portal-demo.html` | A walkthrough page explaining how CVs reach HR and how jobs are posted from the assistant |
+## Files in this skill
+
+Paths are from this skill's folder. If you're reading this from a link and can't open the folder, use the raw link: it returns the plain file. **Read only what the step needs.**
+
+| When | Read | Raw link |
+|---|---|---|
+| Building the portal (Step 4) | `reference/build-brief.md` | https://raw.githubusercontent.com/EverydayAIHR/hr-skills/main/skills/careers-portal/reference/build-brief.md |
+| Building: the portal itself, passed to the builder in full | `portal/index.html`, `portal/styles.css`, `portal/app.js`, `portal/config.js` | https://raw.githubusercontent.com/EverydayAIHR/hr-skills/main/skills/careers-portal/portal/index.html, https://raw.githubusercontent.com/EverydayAIHR/hr-skills/main/skills/careers-portal/portal/styles.css, https://raw.githubusercontent.com/EverydayAIHR/hr-skills/main/skills/careers-portal/portal/app.js, https://raw.githubusercontent.com/EverydayAIHR/hr-skills/main/skills/careers-portal/portal/config.js |
+| Building: the database, run as one migration | `portal/supabase/schema.sql` | https://raw.githubusercontent.com/EverydayAIHR/hr-skills/main/skills/careers-portal/portal/supabase/schema.sql |
+| After every build and before publishing: the self-check | `portal/supabase/check-portal.sql` | https://raw.githubusercontent.com/EverydayAIHR/hr-skills/main/skills/careers-portal/portal/supabase/check-portal.sql |
+| Explaining the tables and storage | `reference/data-model.md` | https://raw.githubusercontent.com/EverydayAIHR/hr-skills/main/skills/careers-portal/reference/data-model.md |
+| Choosing how applications reach the inbox (Step 3, 5) | `reference/email-options.md` | https://raw.githubusercontent.com/EverydayAIHR/hr-skills/main/skills/careers-portal/reference/email-options.md |
+| After launch: post, edit, close, review applicants | `reference/everyday-tasks.md` | https://raw.githubusercontent.com/EverydayAIHR/hr-skills/main/skills/careers-portal/reference/everyday-tasks.md |
+| The user has Replit, Base44 or Bolt instead | `reference/other-builders.md` | https://raw.githubusercontent.com/EverydayAIHR/hr-skills/main/skills/careers-portal/reference/other-builders.md |
+| Something doesn't work, or before changing the portal or rules | `reference/gotchas.md` | https://raw.githubusercontent.com/EverydayAIHR/hr-skills/main/skills/careers-portal/reference/gotchas.md |
 
 ## Ground rules (apply at every step)
 
@@ -31,6 +37,16 @@ Reference files in this skill (online: https://github.com/EverydayAIHR/hr-skills
 4. **CVs are personal data.** Keep them in private storage, never paste a CV's contents into a public page, and follow the retention period the user sets.
 5. **Steps the user must do themselves:** creating accounts, signing in, connecting Gmail or other accounts, paying for a plan, and changing DNS records. Explain the step, then wait.
 6. **Say what you can't do.** If the connector or tool needed for a step isn't available to you, say so and give the user the manual route.
+
+## Start here: the user may know nothing about this
+
+If the user just shared this link, or says something like "help me with this", start with three short lines in plain words, before any question:
+
+1. What they'll get: their own careers page, where candidates see open jobs and apply with a CV, and they post or close jobs just by asking you.
+2. What it needs: a free Lovable account (the website builder that will hold their page), and some time while it builds. Publishing on a lovable.app address is free; their own domain needs a paid plan.
+3. The demo link above, so they can see the result first.
+
+Then ask whether they'd like to start. Don't use words like MCP, database, bucket or migration with the user unless they use them first: say "connect Lovable to me", "where job posts are kept", "private folder for CVs".
 
 ## Step 1: Check what's needed
 
@@ -79,11 +95,12 @@ Record the choice. It decides part of the build brief.
 
 ## Step 4: Build the portal
 
-1. Fill in `reference/build-brief.md` with the details from Step 2 and the email choice from Step 3, and attach the reference portal files it lists.
-2. Show the user a short summary of what will be built and the credits it will use. Ask for a yes.
-3. Create a new Lovable project and send the brief. If the connector can't create projects, give the user the filled-in brief to paste into Lovable.
-4. When the build finishes, check it against `reference/data-model.md`, especially that CV storage is **private** and the public can read only open jobs. Ask the builder to fix anything that is missing.
-5. Share the preview link and ask the user to try the apply form with a test CV.
+1. Fill in `reference/build-brief.md` with the details from Step 2 and the email choice from Step 3.
+2. Show the user a short summary of what will be built, and say it uses their Lovable credits. Ask for a yes.
+3. Create a new Lovable project with the filled-in brief, followed by the **full text** of `portal/index.html`, `portal/styles.css`, `portal/app.js` and `portal/supabase/schema.sql` (one after another, each under its file name). Don't summarise them. If the message would be too long for the tool, send the brief first, then the files in a second message. Without the connector, give the user the brief and the raw links to paste into Lovable.
+4. When the build is finished, run **the self-check**: the whole of `portal/supabase/check-portal.sql` with the database tool (Lovable: `query_database`). It only reads. Show the user every row in plain words.
+5. Any **FAIL** means candidates' data could be exposed: ask Lovable to fix exactly that rule, then run the self-check again. Don't publish until every row is PASS or a WARN the user has accepted.
+6. Share the preview link and ask the user to try the apply form with a test CV.
 
 ## Step 5: Connect email
 
@@ -91,13 +108,15 @@ Follow the steps for the chosen option in `reference/email-options.md`. Signing 
 
 ## Step 6: Publish
 
-Ask for a yes, then publish. Give the user the live address. If they want `careers.company.com`, explain the paid-plan custom-domain steps in `reference/email-options.md` (section "Own domain").
+Run the self-check once more. Then ask for a yes, and publish. Give the user the live address. If they want `careers.company.com`, explain the paid-plan custom-domain steps in `reference/email-options.md` (section "Own domain").
 
 ## Step 7: Post the first job
 
 Follow "Post a job" in `reference/everyday-tasks.md`: draft, preview, wait for yes, publish, then share the link.
 
 ## After launch
+
+Run the self-check again after any change to the page's features or rules, and once a month.
 
 From now on, the user can just ask: "Post a job for a…", "Change the designer role to hybrid", "Close the accountant role", "Who applied for the driver role?". Use `reference/everyday-tasks.md`. Ground rule 1 applies every time.
 

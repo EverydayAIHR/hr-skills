@@ -2,17 +2,25 @@
 
 Fill in the `{placeholders}` from Step 2 and the email choice from Step 3, then send the brief to the app builder in one message. Remove the email section you're not using. Written for Lovable; for other builders see `other-builders.md`.
 
-**Attach the reference build.** The finished design lives in `../portal/` (online: https://github.com/EverydayAIHR/hr-skills/tree/main/skills/careers-portal/portal). Attach `index.html`, `styles.css`, `app.js` and `supabase/schema.sql` to the message (with the Lovable connector: get an upload address for each file, then pass the files with the message). If you can't attach files, paste the GitHub link and ask the builder to follow it.
+**Include the reference build.** The finished design is in `../portal/`. After the brief, add the **full text** of each file below under its name, unchanged. If the tool's message limit is a problem, send the brief, then the files in a follow-up message.
+
+- https://raw.githubusercontent.com/EverydayAIHR/hr-skills/main/skills/careers-portal/portal/index.html
+- https://raw.githubusercontent.com/EverydayAIHR/hr-skills/main/skills/careers-portal/portal/styles.css
+- https://raw.githubusercontent.com/EverydayAIHR/hr-skills/main/skills/careers-portal/portal/app.js
+- https://raw.githubusercontent.com/EverydayAIHR/hr-skills/main/skills/careers-portal/portal/supabase/schema.sql
 
 ```
 Build a careers portal for {company_name}. Use Lovable Cloud for the
 database, file storage and server functions.
 
-REFERENCE BUILD (attached)
-- Reproduce the attached reference build's design and behaviour in this
+REFERENCE BUILD (the files after this brief)
+- Reproduce the reference build's design and behaviour in this
   project: same layout, type (Manrope headings, Karla body text), spacing, pages,
   filters, apply form, validation messages and confirmation page.
-- Use the attached schema.sql as the database migration, unchanged.
+- Use schema.sql below as the database migration, unchanged. Don't
+  loosen any access rule.
+- Keep the settings and jobs data in the database; the page must read
+  them from Lovable Cloud, not from demo-data.js.
 - Keep the same page addresses for roles (role, apply and applied pages
   by job slug).
 
@@ -76,6 +84,8 @@ application data on public pages.
 ```
 
 ## Check after the build
+
+- [ ] Run `portal/supabase/check-portal.sql` and fix every FAIL.
 
 - [ ] Open the careers page while signed out: only open jobs show, and the draft sample doesn't.
 - [ ] Apply with a test CV: a success message appears and a row is saved.

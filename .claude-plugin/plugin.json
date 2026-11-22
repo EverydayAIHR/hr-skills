@@ -1,6 +1,6 @@
 {
   "name": "everyday-ai-in-hr",
-  "version": "0.2.0",
-  "description": "AI assistant skills for HR teams from the Everyday AI in HR YouTube series. Written for Claude, ChatGPT and other assistants. Examples are fictional.",
+  "version": "0.3.0",
+  "description": "AI assistant skills for HR teams from the Everyday AI in HR YouTube series: a careers portal you run by chatting, and a 9-box talent matrix. Written for Claude, ChatGPT and other assistants. Examples are fictional.",
   "license": "MIT"
 }
